@@ -45,7 +45,7 @@ impl IntrospectionConnector {
             .map(|row| row.get("name").and_then(|x| x.to_string()).unwrap())
             .filter(|n| n != "sqlite_sequence")
             .collect();
-        debug!("Found table names: {:#?}", names);
+        debug!("Found table names: {:?}", names);
         names
     }
 
@@ -93,8 +93,7 @@ impl IntrospectionConnector {
                     tpe,
                     arity: arity.clone(),
                     default: default_value.clone(),
-                    // TODO
-                    auto_increment: None,
+                    auto_increment: pk > 0,
                 };
                 if pk > 0 {
                     pk_cols.insert(pk, col.name.clone());
